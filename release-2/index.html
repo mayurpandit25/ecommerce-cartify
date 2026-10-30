@@ -1,0 +1,531 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cartify | Online Shopping</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f5f6fa;
+  color:#252943;
+}
+
+header{
+  background:white;
+  min-height:76px;
+  padding:15px 5%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+.logo{font-size:27px;font-weight:800;color:#5b4bdb}
+
+.header-right{display:flex;align-items:center;gap:15px}
+
+.release{
+  background:#e5f9ed;
+  color:#16834b;
+  padding:10px 16px;
+  border-radius:25px;
+  font-weight:bold;
+  font-size:13px;
+}
+
+.cart-link{
+  background:#5b4bdb;
+  color:white;
+  padding:11px 17px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.container{max-width:1200px;width:92%;margin:auto}
+
+.hero{
+  margin:30px auto;
+  padding:45px;
+  border-radius:20px;
+  background:linear-gradient(120deg,#5146d8,#20a889);
+  color:white;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  min-height:190px;
+}
+
+.hero h1{font-size:36px;margin-bottom:12px}
+.hero p{font-size:16px;line-height:1.6}
+.hero-icon{font-size:85px}
+
+.section-heading{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:35px 0 20px;
+}
+
+.section-heading h2{font-size:25px}
+.section-heading span{color:#777;font-size:14px}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:20px;
+}
+
+.card{
+  background:white;
+  border-radius:16px;
+  padding:15px;
+  box-shadow:0 4px 18px rgba(40,40,80,.07);
+  transition:transform .2s,box-shadow .2s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 8px 24px rgba(40,40,80,.13);
+}
+
+.product-image{
+  height:165px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#e9fff4,#f3f8ff);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:75px;
+  margin-bottom:16px;
+}
+
+.card h3{font-size:17px;margin-bottom:8px}
+.card p{color:#777;font-size:13px;min-height:34px;line-height:1.5}
+
+.price{
+  color:#16834b;
+  font-size:21px;
+  font-weight:bold;
+  margin:13px 0;
+}
+
+button{
+  cursor:pointer;
+  border:0;
+  border-radius:9px;
+  font-weight:bold;
+}
+
+button:hover{opacity:.86}
+
+.add{
+  width:100%;
+  background:#168b67;
+  color:white;
+  padding:13px;
+  font-size:14px;
+}
+
+.cart-section{
+  margin:40px 0;
+  background:white;
+  border-radius:17px;
+  padding:25px;
+  box-shadow:0 4px 18px rgba(40,40,80,.07);
+}
+
+.cart-title{font-size:24px;margin-bottom:20px}
+
+.empty{color:#888;padding:20px 0}
+
+.cart-row{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr auto;
+  gap:15px;
+  align-items:center;
+  padding:17px 0;
+  border-bottom:1px solid #eee;
+}
+
+.cart-product{font-weight:bold}
+.cart-product small{
+  display:block;
+  color:#777;
+  margin-top:6px;
+  font-weight:normal;
+}
+
+.qty{display:flex;align-items:center;gap:12px}
+.qty button{
+  width:29px;height:29px;
+  background:#e5f9ed;color:#16834b;
+  font-size:17px;
+}
+
+.remove{
+  background:#fff0f0;
+  color:#d33;
+  padding:10px 14px;
+}
+
+.summary{
+  max-width:430px;
+  margin:25px 0 0 auto;
+  background:#f5fbf7;
+  border-radius:12px;
+  padding:20px;
+}
+
+.summary-row{
+  display:flex;
+  justify-content:space-between;
+  padding:9px 0;
+  color:#555;
+}
+
+.coupon-area{
+  display:flex;
+  gap:8px;
+  margin:14px 0;
+}
+
+.coupon-area input{
+  min-width:0;
+  flex:1;
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font-size:14px;
+}
+
+.coupon-area button{
+  background:#168b67;
+  color:white;
+  padding:12px 16px;
+}
+
+#couponMessage{
+  font-size:13px;
+  margin:8px 0;
+  font-weight:bold;
+}
+
+.total-row{
+  border-top:1px solid #ddd;
+  margin-top:10px;
+  padding-top:16px;
+  font-size:21px;
+  font-weight:bold;
+  color:#252943;
+}
+
+.checkout{
+  width:100%;
+  background:#168b67;
+  color:white;
+  padding:15px;
+  margin-top:18px;
+  font-size:15px;
+}
+
+#message{margin-top:15px;color:#16834b;font-weight:bold}
+
+footer{
+  text-align:center;
+  padding:25px;
+  color:#888;
+  background:white;
+  margin-top:30px;
+}
+
+@media(max-width:850px){
+  .products{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero h1{font-size:29px}
+}
+
+@media(max-width:550px){
+  header{padding:13px 4%}
+  .logo{font-size:21px}
+  .header-right{gap:7px}
+  .release{font-size:10px;padding:8px}
+  .cart-link{font-size:12px;padding:9px}
+  .hero{padding:27px;margin:20px auto}
+  .hero h1{font-size:25px}
+  .hero-icon{font-size:45px}
+  .products{grid-template-columns:1fr 1fr;gap:10px}
+  .card{padding:10px}
+  .product-image{height:115px;font-size:53px}
+  .card h3{font-size:14px}
+  .cart-section{padding:15px}
+  .cart-row{grid-template-columns:1fr 1fr}
+  .summary{max-width:100%}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🛍 Cartify</div>
+  <div class="header-right">
+    <div class="release">PRODUCTION RELEASE 2.0</div>
+    <div class="cart-link">🛒 My Cart</div>
+  </div>
+</header>
+
+<main class="container">
+
+<section class="hero">
+  <div>
+    <h1>Shop smarter. Live better.</h1>
+    <p>Discover amazing products at amazing prices.</p>
+    <p style="margin-top:12px;font-weight:bold">
+      YOUR EVERYDAY SHOPPING DESTINATION
+    </p>
+  </div>
+  <div class="hero-icon">🛍️</div>
+</section>
+
+<div class="section-heading">
+  <h2>Featured Products</h2>
+  <span>Release 2.0 – Improved Shopping</span>
+</div>
+
+<div class="products" id="products"></div>
+
+<section class="cart-section" id="shopping-cart">
+
+  <h2 class="cart-title">🛒 Your Shopping Cart</h2>
+
+  <div id="cartItems" class="empty">
+    Your cart is empty. Start shopping!
+  </div>
+
+  <div class="summary">
+
+    <div class="summary-row">
+      <span>Subtotal</span>
+      <strong>₹<span id="subtotal">0.00</span></strong>
+    </div>
+
+    <div class="summary-row">
+      <span>Standard Discount (10%)</span>
+      <strong style="color:#16834b">
+        - ₹<span id="discount">0.00</span>
+      </strong>
+    </div>
+
+    <div class="coupon-area">
+      <input id="couponInput" placeholder="Enter coupon code">
+      <button onclick="applyCoupon()">Apply</button>
+    </div>
+
+    <div id="couponMessage"></div>
+
+    <div class="summary-row">
+      <span>Coupon Discount</span>
+      <strong style="color:#16834b">
+        - ₹<span id="couponDiscount">0.00</span>
+      </strong>
+    </div>
+
+    <div class="summary-row total-row">
+      <span>Total</span>
+      <span>₹<span id="total">0.00</span></span>
+    </div>
+
+    <button class="checkout" onclick="checkout()">
+      Proceed to Checkout →
+    </button>
+
+    <div id="message"></div>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  © 2026 Cartify | Production Deployment Demo
+  <br>
+  <small>Version 2.0 | Bug Fixes and Improvements</small>
+</footer>
+
+<script>
+
+const products=[
+ {id:1,name:"Wireless Headphones",price:1999,icon:"🎧",desc:"Premium sound experience"},
+ {id:2,name:"Smart Watch",price:2499,icon:"⌚",desc:"Your fitness companion"},
+ {id:3,name:"Running Shoes",price:1799,icon:"👟",desc:"Comfort for every step"},
+ {id:4,name:"Travel Backpack",price:1299,icon:"🎒",desc:"Ready for every journey"}
+];
+
+let cart=[];
+let couponApplied=false;
+
+function money(value){
+ return Number(value).toLocaleString("en-IN",{
+  minimumFractionDigits:2,
+  maximumFractionDigits:2
+ });
+}
+
+function renderProducts(){
+ document.getElementById("products").innerHTML=
+ products.map(p=>`
+ <div class="card">
+   <div class="product-image">${p.icon}</div>
+   <h3>${p.name}</h3>
+   <p>${p.desc}</p>
+   <div class="price">₹${p.price.toLocaleString("en-IN")}</div>
+   <button class="add" onclick="addToCart(${p.id})">
+     Add to Cart +
+   </button>
+ </div>
+ `).join("");
+}
+
+// FIX 1: Existing products update quantity instead of duplicates.
+function addToCart(id){
+ const product=products.find(p=>p.id===id);
+ const existing=cart.find(item=>item.id===id);
+
+ if(existing){
+   existing.qty++;
+ }else{
+   cart.push({...product,qty:1});
+ }
+
+ document.getElementById("message").textContent="";
+ renderCart();
+}
+
+function changeQty(id,amount){
+ const item=cart.find(p=>p.id===id);
+ if(!item)return;
+
+ item.qty+=amount;
+
+ if(item.qty<=0){
+   cart=cart.filter(p=>p.id!==id);
+ }
+
+ renderCart();
+}
+
+function removeItem(id){
+ cart=cart.filter(p=>p.id!==id);
+
+ if(cart.length===0){
+   couponApplied=false;
+   document.getElementById("couponInput").value="";
+   document.getElementById("couponMessage").textContent="";
+ }
+
+ renderCart();
+}
+
+// All totals are recalculated on every cart update.
+function renderCart(){
+
+ const area=document.getElementById("cartItems");
+
+ if(!cart.length){
+   area.innerHTML='<div class="empty">Your cart is empty. Start shopping!</div>';
+ }else{
+   area.innerHTML=cart.map(p=>`
+    <div class="cart-row">
+
+      <div class="cart-product">
+        ${p.icon} ${p.name}
+        <small>₹${p.price.toLocaleString("en-IN")} per item</small>
+      </div>
+
+      <div class="qty">
+        <button onclick="changeQty(${p.id},-1)">−</button>
+        <strong>${p.qty}</strong>
+        <button onclick="changeQty(${p.id},1)">+</button>
+      </div>
+
+      <strong>₹${money(p.price*p.qty)}</strong>
+
+      <button class="remove" onclick="removeItem(${p.id})">
+        Remove
+      </button>
+
+    </div>
+   `).join("");
+ }
+
+ const subtotal=cart.reduce((sum,p)=>sum+p.price*p.qty,0);
+ const discount=subtotal*0.10;
+
+ const couponDiscount=couponApplied
+   ?(subtotal-discount)*0.05
+   :0;
+
+ const total=subtotal-discount-couponDiscount;
+
+ document.getElementById("subtotal").textContent=money(subtotal);
+ document.getElementById("discount").textContent=money(discount);
+ document.getElementById("couponDiscount").textContent=money(couponDiscount);
+ document.getElementById("total").textContent=money(total);
+}
+
+function applyCoupon(){
+
+ const code=document.getElementById("couponInput").value.trim().toUpperCase();
+ const couponMessage=document.getElementById("couponMessage");
+
+ if(!cart.length){
+   couponApplied=false;
+   couponMessage.style.color="#d33";
+   couponMessage.textContent="Add products before applying a coupon.";
+   renderCart();
+   return;
+ }
+
+ if(code==="SAVE5"){
+   couponApplied=true;
+   couponMessage.style.color="#16834b";
+   couponMessage.textContent="✓ SAVE5 applied! Additional 5% discount.";
+ }else{
+   couponApplied=false;
+   couponMessage.style.color="#d33";
+   couponMessage.textContent="Invalid coupon code. Try SAVE5.";
+ }
+
+ renderCart();
+}
+
+function checkout(){
+
+ const message=document.getElementById("message");
+
+ if(!cart.length){
+   message.textContent="Please add products before checkout.";
+   return;
+ }
+
+ const subtotal=cart.reduce((sum,p)=>sum+p.price*p.qty,0);
+ const discount=subtotal*0.10;
+ const couponDiscount=couponApplied?(subtotal-discount)*0.05:0;
+ const total=subtotal-discount-couponDiscount;
+
+ message.textContent=
+ "🎉 Demo order placed successfully! Total: ₹"+money(total);
+}
+
+renderProducts();
+renderCart();
+
+</script>
+</body>
+</html>
+
