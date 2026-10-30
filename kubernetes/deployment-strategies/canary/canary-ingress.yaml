@@ -1,0 +1,58 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: cartify-weighted-routing
+  namespace: ecommerce-cartify
+  annotations:
+    alb.ingress.kubernetes.io/actions.cartify-weighted-routing: |
+      {
+        "type": "forward",
+        "forwardConfig": {
+          "targetGroups": [
+            {
+              "serviceName": "cartify-stable-service",
+              "servicePort": "80",
+              "weight": 90
+            },
+            {
+              "serviceName": "cartify-canary-service",
+              "servicePort": "80",
+              "weight": 10
+            }
+          ]
+        }
+      }
+spec:
+  type: ClusterIP
+  ports:
+    - name: use-annotation
+      port: 80
+      targetPort: 80
+      protocol: TCP
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cartify-canary-ingress
+  namespace: ecommerce-cartify
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+    alb.ingress.kubernetes.io/subnets: subnet-0169980231bb5aeb3,subnet-0739f6ed6233b8989,subnet-0be37ad683ecf1390
+    alb.ingress.kubernetes.io/healthcheck-path: /
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: cartify-weighted-routing
+                port:
+                  name: use-annotation
+

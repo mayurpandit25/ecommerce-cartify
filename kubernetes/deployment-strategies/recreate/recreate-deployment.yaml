@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: cartify-recreate
+  namespace: ecommerce-cartify
+
+spec:
+  replicas: 3
+
+  strategy:
+    type: Recreate
+
+  selector:
+    matchLabels:
+      app: cartify-recreate
+
+  template:
+    metadata:
+      labels:
+        app: cartify-recreate
+
+    spec:
+      containers:
+        - name: cartify
+          image: mayurpandit25/ecommerce-cartify:v1.0
+
+          ports:
+            - containerPort: 80
+              name: http
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+
+            limits:
+              cpu: 250m
+              memory: 128Mi
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
+
