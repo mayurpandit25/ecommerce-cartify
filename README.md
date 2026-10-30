@@ -160,3 +160,34 @@ docker build -t ecommerce-cartify:v2.0 .
 docker images
 ```
 
+## 🐳 Docker Hub Repository
+
+Both application releases are available on Docker Hub.
+
+**Docker Hub Repository:**  
+[mayurpandit25/ecommerce-cartify](https://hub.docker.com/repository/docker/mayurpandit25/ecommerce-cartify/general)
+
+### Available Images
+
+| Release | Docker Image |
+|---|---|
+| Release 1.0 | `mayurpandit25/ecommerce-cartify:v1.0` |
+| Release 2.0 | `mayurpandit25/ecommerce-cartify:v2.0` |
+
+### Pull Images from Docker Hub
+
+Pull Release 1.0:
+
+```bash
+docker pull mayurpandit25/ecommerce-cartify:v1.0
+```
+
+Pull Release 2.0:
+
+```bash
+docker pull mayurpandit25/ecommerce-cartify:v2.0
+```
+
+**View all available image tags:**  
+[Docker Hub – ecommerce-cartify Tags](https://hub.docker.com/repository/docker/mayurpandit25/ecommerce-cartify/tags)
+
