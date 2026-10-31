@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cartify-canary
+  namespace: ecommerce-cartify
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cartify-canary
+  template:
+    metadata:
+      labels:
+        app: cartify-canary
+        version: v2
+    spec:
+      containers:
+        - name: cartify
+          image: mayurpandit25/ecommerce-cartify:v2.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 250m
+              memory: 128Mi
